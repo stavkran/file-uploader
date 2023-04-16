@@ -1,0 +1,72 @@
+{% extends "main.html" %}
+{% load static %}
+
+{% block content %}
+        
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="file" id="file" name="file" style="display:none;" multiple>
+        <label for="file" id="dropzone" style="border: 2px dashed #ccc; background-color: #f9f9f9; padding:20px; text-align: center; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto;">
+            <p style="margin: 0;">Drag and drop your file here</p>
+            <p style="margin: 5px 0;">or</p>
+            <p style="margin: 0;">Click below to select file</p> 
+        </label>
+        <button type="submit" style="margin-top: 20px;">Upload</button>
+    </form>
+
+{% endblock %}
+
+<script>
+    //Javascript to handle drag-and-drop functionality
+    var dropzone = document.getElementById('dropzone');
+    var fileInput = document.getElementById('file');
+
+    dropzone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        // e.dataTransfer.dropEffect = 'copy';
+        dropzone.style.backgroundColor = '#eee';
+    });
+
+    dropzone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        dropzone.style.backgroundColor = '#f9f9f9';
+    });
+
+    dropzone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        dropzone.style.backgroundColor = '#f9f9f9';
+        fileInput.files = e.dataTransfer.files;
+        fileInput.files = files;
+    });
+
+    label.addEventListener('click', function(e) {
+        e.preventDefault();
+        fileInput.click(); // Trigger file input element
+    });
+
+    fileInput.addEventListener('click', function(e) {
+            e.preventDefault();
+            fileInput.click();
+    });
+
+    var form = document.querySelector('form');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent default form submission behavior
+        // Additional validation or processing logic can be added here
+        form.submit(); // Manually submit the form
+    });
+
+</script>
+
+<style>
+    /* Additional CSS styles for dropzone area */
+    #dropzone::before {
+        content: '\1F4C2'; /* File emoji */
+        font-size: 40px;
+        margin-bottom: 10px;
+    }
+
+    #dropzone:hover {
+        background-color: #f0f0f0;
+    }
+</style>
